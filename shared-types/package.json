@@ -1,0 +1,12 @@
+{
+  "name": "shared-types",
+  "version": "1.0.0",
+  "description": "Types partagés entre frontend et backend",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "*.js",
+    "*.d.ts"
+  ],
+  "private": true
+}
