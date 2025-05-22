@@ -4,15 +4,15 @@ import { CardStatus } from '../../enums';
 export class UpdateCardDto {
   @IsOptional()
   @IsNotEmpty()
-  code: string;
+  code?: string;
 
   @IsOptional()
   @IsNotEmpty()
-  note: string;
+  note?: string;
 
   @IsOptional()
   @IsNotEmpty()
-  status: CardStatus;
+  status?: CardStatus;
 
   @IsOptional()
   @IsArray()
