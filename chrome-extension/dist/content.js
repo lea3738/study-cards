@@ -1,1 +1,0 @@
-(()=>{"use strict";console.log("Study Cards extension ready")})();

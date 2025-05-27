@@ -51,3 +51,13 @@ Thumbs.db
 node_modules/
 */node_modules/
 **/node_modules/
+
+# Build outputs (generated files, should not be in Git)
+dist/
+*/dist/
+**/dist/
+.next/
+*/.next/
+**/.next/
+build/
+*/build/
