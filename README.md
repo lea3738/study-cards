@@ -231,6 +231,7 @@ npm run build
 
 ## Roadmap & Future Improvements
 
+- [ ] **Tests**: Add unit testing
 - [ ] **Responsive Design**: Make cards fully responsive across all devices, and the whole thing a bit prettier
 - [ ] **Shared Types Migration**: Move entities to shared-types for consistent API typing
 - [ ] **Tag Management**: Handle creation of a tag that already exists, update & delete tags, add color
