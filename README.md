@@ -68,6 +68,7 @@ study-cards/
 
 - Node.js 18+
 - npm or yarn
+- PostgreSQL (for database)
 - Chrome browser (for extension testing)
 - Anthropic API key (for AI features)
 
@@ -78,31 +79,44 @@ git clone https://github.com/lea3738/study-cards.git
 cd study-cards
 ```
 
-### 2. Install dependencies
+### 2. Install dependencies (IMPORTANT: Install in ALL directories)
 
 ```bash
 # Install root dependencies
 npm install
 
+# Install shared-types dependencies and build
+cd shared-types
+npm install
+npm run build
+cd ..
+
 # Install backend dependencies
 cd backend
 npm install
+cd ..
 
 # Install frontend dependencies
-cd ../frontend
+cd frontend
 npm install
+cd ..
 
 # Install chrome extension dependencies
-cd ../chrome-extension
+cd chrome-extension
 npm install
+cd ..
 ```
 
 ### 3. Environment Configuration
 
 #### Backend Environment
 
-Create `backend/.env`:
+```bash
+cd backend
+cp .env.example .env
+```
 
+Edit `backend/.env` and add your Anthropic API key:
 ```env
 PORT=3001
 ANTHROPIC_API_KEY=your_claude_api_key_here
@@ -110,21 +124,35 @@ ANTHROPIC_API_KEY=your_claude_api_key_here
 
 #### Frontend Environment
 
-Create `frontend/.env.local`:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
+```bash
+cd frontend
+cp .env.local.example .env.local
 ```
 
 #### Chrome Extension Environment
 
-Create `chrome-extension/.env`:
-
-```env
-REACT_APP_FRONTEND_URL=http://localhost:3000
+```bash
+cd chrome-extension
+cp .env.example .env
 ```
 
-### 4. Getting Your Anthropic API Key
+### 4. Database Setup
+
+Create a PostgreSQL database:
+```bash
+createdb study_cards
+```
+
+Or configure your database connection in `backend/.env`:
+```env
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USERNAME=your_username
+DATABASE_PASSWORD=your_password
+DATABASE_NAME=study_cards
+```
+
+### 5. Getting Your Anthropic API Key
 
 1. Go to [console.anthropic.com](https://console.anthropic.com)
 2. Create an account and verify your email
@@ -145,6 +173,8 @@ npm run start:dev
 This will start:
 - Backend API at http://localhost:3001
 - Frontend at http://localhost:3000
+
+**Important**: If you get TypeScript errors about missing modules, ensure you've run `npm install` in ALL directories including `shared-types`.
 
 ### Individual Services
 
@@ -167,6 +197,16 @@ npm run build
 
 ### Loading in Chrome
 
+#### On Ubuntu/Linux:
+```bash
+# Launch Chrome from terminal
+google-chrome
+
+# Or launch in background
+google-chrome &
+```
+
+#### In any environment:
 1. Open Chrome and go to `chrome://extensions/`
 2. Enable "Developer mode" (toggle in top right)
 3. Click "Load unpacked extension"
@@ -228,6 +268,74 @@ npm run build
 - **Shared Types**: Consistent types between frontend and backend
 - **ESLint + Prettier**: Code formatting and linting
 - **Error Handling**: Comprehensive error handling in API calls
+
+## Troubleshooting
+
+### "Cannot find module '@nestjs/common'" errors
+This means dependencies aren't installed properly. Run:
+```bash
+cd backend
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### "Cannot find module '@your-org/shared-types'" errors
+The shared-types package needs to be built:
+```bash
+cd shared-types
+npm install
+npm run build
+cd ../backend
+npm install
+```
+
+### "Port already in use" errors
+Kill existing processes:
+```bash
+pkill -f node
+```
+
+### "Module not found" errors
+Clear and reinstall all dependencies:
+```bash
+# From root directory
+rm -rf node_modules package-lock.json
+rm -rf backend/node_modules backend/package-lock.json
+rm -rf frontend/node_modules frontend/package-lock.json
+rm -rf chrome-extension/node_modules chrome-extension/package-lock.json
+rm -rf shared-types/node_modules shared-types/package-lock.json
+
+# Reinstall everything
+npm install
+cd shared-types && npm install && npm run build && cd ..
+cd backend && npm install && cd ..
+cd frontend && npm install && cd ..
+cd chrome-extension && npm install && cd ..
+```
+
+### Database connection issues
+Ensure PostgreSQL is running and the database exists:
+```bash
+# Check if PostgreSQL is running
+pg_isready
+
+# Create database if it doesn't exist
+createdb study_cards
+```
+
+### Chrome Extension not loading
+- Ensure you're pointing to the `dist/` folder, not the source
+- Check that `manifest.json` exists in the loaded folder
+- Verify all required permissions are granted
+
+## Quick Verification
+
+After setup, verify everything works:
+
+1. **Backend**: Visit http://localhost:3001/cards (should return JSON)
+2. **Frontend**: Visit http://localhost:3000 (should show the app)
+3. **API Integration**: Try creating a card through the frontend
+4. **Database**: Check that cards are saved and retrieved
 
 ## Roadmap & Future Improvements
 
