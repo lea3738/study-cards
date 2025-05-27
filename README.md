@@ -136,14 +136,25 @@ cd chrome-extension
 cp .env.example .env
 ```
 
-### 4. Database Setup
+### 4. Database Setup (Required)
+
+**Option 1: PostgreSQL (Recommended)**
+```bash
+# Install PostgreSQL
+sudo apt install postgresql postgresql-contrib
+
+# Start PostgreSQL service
+sudo service postgresql start
+
+# Create database
+sudo -u postgres createdb study_cards
 
 Create a PostgreSQL database:
 ```bash
 createdb study_cards
 ```
 
-Or configure your database connection in `backend/.env`:
+**Option 2: configure your database connection in `backend/.env`:
 ```env
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
