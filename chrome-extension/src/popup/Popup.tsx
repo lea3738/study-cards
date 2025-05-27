@@ -21,7 +21,7 @@ export default function Popup() {
         }
     }    
 
-    const handleCreateCard = async function() {
+    const handleCreateCard = function() {
         if (selectedCode) {
         const encodedCode = encodeURIComponent(selectedCode);
         const frontendUrl = process.env.REACT_APP_FRONTEND_URL || 'http://localhost:3000';
@@ -30,6 +30,11 @@ export default function Popup() {
         window.close();
         }
     }
+
+    const handleBack = () => {
+        setPhase('select');
+        setSelectedCode('');
+    };
 
 
 
@@ -62,6 +67,13 @@ export default function Popup() {
                 >
                     Create study card
                 </button>
+                <button
+                    type="button"
+                    onClick={handleBack}
+                    className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                    Go back
+              </button>
                 </div>
             )}
         </div>
