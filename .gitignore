@@ -61,3 +61,8 @@ dist/
 **/.next/
 build/
 */build/
+
+# Node modules - all levels
+node_modules/
+**/node_modules/
+shared-types/node_modules/
