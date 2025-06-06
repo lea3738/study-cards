@@ -10,6 +10,10 @@ type AddableProps = {
 function AddableTag({ tagName, handleAddTagName }: AddableProps) {
 
   const { deleteTagByName } = useTags();
+
+  const handleClick = async function (name) {
+    await deleteTagByName(name);
+  };
   
   return (
     <div className="w-64 flex justify-between p-1">
@@ -22,7 +26,7 @@ function AddableTag({ tagName, handleAddTagName }: AddableProps) {
       >
         {tagName}
       </button>
-      <FontAwesomeIcon className="text-sm text-gray-400" icon={faTrash} />
+      <FontAwesomeIcon className="text-sm text-gray-400" icon={faTrash} onClick={handleClick} />
     </div>
   );
 }
