@@ -17,18 +17,17 @@ function UpdateCardForm({ id, code, note, tags }: UpdateCardFormProps) {
   const [updatedCode, setUpdatedCode] = useState<string>(code);
   const [updatedNote, setUpdatedNote] = useState<string>(note);
 
-  const tagNames = tags.map(tag => tag.name);
-   
+  const tagNames = tags.map((tag) => tag.name);
+
   const updatedTagsRef = useRef<string[]>(tagNames);
 
   const handleUpdateTagNames = useCallback((tagNames: string[]) => {
-    updatedTagsRef.current = tagNames; 
+    updatedTagsRef.current = tagNames;
   }, []);
 
   const { updateCard } = useCards();
 
   async function handleSubmit(e: React.FormEvent) {
-
     e.preventDefault();
     const updateCardDto: Partial<UpdateCardDto> = {
       code: updatedCode,
@@ -39,12 +38,15 @@ function UpdateCardForm({ id, code, note, tags }: UpdateCardFormProps) {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center h-screen px-4">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center border rounded shadow-lg border-gray-200 p-4 h-screen bg-white"
+        className="flex flex-col flex-1 min-h-0 items-center border rounded shadow-lg border-gray-200 p-4 bg-white w-full max-w-xl"
       >
-        <UpdateCardTags tags={tags} handleUpdateTagNames={handleUpdateTagNames} />
+        <UpdateCardTags
+          tags={tags}
+          handleUpdateTagNames={handleUpdateTagNames}
+        />
         <div className="flex gap-4 grow">
           <div className="flex flex-col h-full w-64">
             <label htmlFor="code" className="text-lg font-bold mb-2">

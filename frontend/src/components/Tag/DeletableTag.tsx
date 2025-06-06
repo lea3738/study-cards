@@ -12,7 +12,7 @@ function DeletableTag({ tagName, handleDeleteTagName }: DeletableProps) {
 
 
   return (
-    <button className="text-xs bg-gray-300 text-gray-800 rounded-xl mx-1 px-1 whitespace-nowrap inline-block" onClick={handleClick}>
+    <button className="text-xs bg-gray-300 text-gray-800 rounded-xl mx-1 px-1 whitespace-nowrap inline-block inline-flex" onClick={handleClick}>
       {`x ${tagName}`}
     </button>
   );

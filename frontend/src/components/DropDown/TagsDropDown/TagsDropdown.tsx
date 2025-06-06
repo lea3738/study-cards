@@ -39,7 +39,7 @@ export default function TagsDropDown({
   };
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative inline-block text-left z-100" ref={dropdownRef}>
       <TagsDropDownButton onClick={toggleMenu} />
       {isOpen && (
         <TagsDropDownContent tagNames={tagNames} handleAddTagName={handleAddTagName} />

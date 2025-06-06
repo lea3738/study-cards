@@ -54,10 +54,10 @@ const handleAddTagName = useCallback((tagName: string) => {
   }, [updatedTagNames, allTagNames]);
 
   return (
-    <div className="w-full flex justify-between items-center border rounded-lg p-2">
-      <div className="flex flex-col">
-        <p className="text-xs text-gray-600">Tags</p>
-        <div className="gap-2 flex flex-wrap mt-2">
+    <div className="w-full flex max-h-16 justify-between items-start border rounded-lg p-2 mb-2">
+      <div className="flex flex-col flex-1 min-w-0 mr-2">
+        <p className="text-xs text-gray-600 flex-shrink-0">Tags</p>
+        <div className="gap-1 flex flex-wrap mt-1 overflow-y-auto max-h-14">
           {updatedTagNames.map((tagName) => {
             return (
               <DeletableTag
@@ -67,6 +67,7 @@ const handleAddTagName = useCallback((tagName: string) => {
               />
             );
           })}
+          <input className="flex-1 min-w-0" type="text" name="" id="" />
         </div>
       </div>
       <TagsDropDown tagNames={unassignedTagNames} handleAddTagName={handleAddTagName}/>
