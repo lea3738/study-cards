@@ -14,7 +14,7 @@ export class TagsService {
     return this.tagsRepository.updateTagName(id, name);
   }
 
-  deleteTag(id: string): Promise<void> {
-    return this.tagsRepository.deleteTag(id);
+  deleteTagByName(name: string): Promise<void> {
+    return this.tagsRepository.deleteTagByName(name);
   }
 }

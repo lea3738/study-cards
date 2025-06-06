@@ -1,3 +1,4 @@
+import { useTags } from "@/hooks/useTags";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -7,6 +8,8 @@ type AddableProps = {
 };
 
 function AddableTag({ tagName, handleAddTagName }: AddableProps) {
+
+  const { deleteTagByName } = useTags();
   
   return (
     <div className="w-64 flex justify-between p-1">

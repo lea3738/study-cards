@@ -19,8 +19,8 @@ export class TagsController {
     return this.tagsService.updateTag(id, name);
   }
 
-  @Delete('/:id')
-  deleteTag(@Param('id') id: string): Promise<void> {
-    return this.tagsService.deleteTag(id);
+  @Delete('/:name')
+  deleteTagByName(@Param('name') name: string): Promise<void> {
+    return this.tagsService.deleteTagByName(name);
   }
 }

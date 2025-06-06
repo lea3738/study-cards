@@ -18,6 +18,16 @@ export class TagsRepository extends Repository<Tag> {
     return tag;
   }
 
+  async getTagByName(name: string): Promise<Tag> {
+    const tag = await this.findOne({ where: { name } });
+
+    if (!tag) {
+      throw new NotFoundException(`The tag ${name} does not exist`);
+    }
+
+    return tag;
+  }
+
   async getOrCreateTag(name: string): Promise<Tag> {
     let tag = await this.findOne({ where: { name } });
 
@@ -46,8 +56,8 @@ export class TagsRepository extends Repository<Tag> {
     return tag;
   }
 
-  async deleteTag(id: string): Promise<void> {
-    const tag = await this.getTagById(id);
+  async deleteTagByName(name: string): Promise<void> {
+    const tag = await this.getTagByName(name);
 
     await this.remove(tag);
   }
