@@ -67,7 +67,7 @@ const handleAddTagName = useCallback((tagName: string) => {
               />
             );
           })}
-          <input className="flex-1 min-w-0" type="text" name="" id="" />
+          <input className="flex-1 min-w-0 focus:outline-none focus:ring-1 focus:border-transparent" type="text" name="" id="" />
         </div>
       </div>
       <TagsDropDown tagNames={unassignedTagNames} handleAddTagName={handleAddTagName}/>
