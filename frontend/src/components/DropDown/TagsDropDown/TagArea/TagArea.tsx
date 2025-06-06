@@ -24,7 +24,7 @@ export default function TagArea({ handleAddTagName }: TagAreaProps) {
           id="add-tags"
           value={tagNamesInput}
           onChange={(e) => setTagNamesInput(e.target.value)}
-          className="block w-full p-1 text-xs text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+          className="block w-full h-6 p-1 pr-12 text-xs text-gray-900 border border-gray-400 rounded bg-white focus:border-blue-500 focus:outline-none"
           placeholder="Add tags: separate with /"
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -36,7 +36,7 @@ export default function TagArea({ handleAddTagName }: TagAreaProps) {
         <button
           type="button"
           onClick={handleSubmit}
-          className="text-white absolute end-0 bottom-0 bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-1 py-1"
+          className="text-white absolute end-0 bottom-0 bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-xs px-2 py-1"
         >
           Add
         </button>

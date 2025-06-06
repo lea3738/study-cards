@@ -17,12 +17,10 @@ export default function UpdateCardTags({ tags, handleUpdateTagNames }: UpdateCar
   const [allTagNames, setAllTagNames] = useState<string[]>([]);
   const { getTags } = useTags();
 
-// !!!! Need to modifiy the function where it's called
 const handleDeleteTagName = useCallback((deletedTagName: string) => {
     setUpdatedTagNames(prev => prev.filter(tagName => tagName !== deletedTagName));
 }, []);
 
-// !!!! Need to modifiy the function where it's called
 const handleAddTagName = useCallback((tagName: string) => {
     setUpdatedTagNames(prev => [...prev, tagName]);
 }, []);
