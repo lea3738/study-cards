@@ -11,8 +11,8 @@ function AddableTag({ tagName, handleAddTagName }: AddableProps) {
 
   const { deleteTagByName } = useTags();
 
-  const handleClick = async function (name) {
-    await deleteTagByName(name);
+  const handleClick = async function () {
+    await deleteTagByName(tagName);
   };
   
   return (
