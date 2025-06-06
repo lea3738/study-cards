@@ -15,7 +15,7 @@ export default function TagsDropDownContent({
   return (
     <div className="absolute left-0 z-10 mt-2 origin-top-left border rounded-md bg-white shadow-lg">
       <div className="p-2">
-        <div className="mb-2">
+        <div className="flex flex-col items-start mb-2">
           {tagNames.map((tagName) => {
             return (
               <AddableTag
