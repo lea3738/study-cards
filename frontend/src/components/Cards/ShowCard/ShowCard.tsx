@@ -8,11 +8,8 @@ function ShowCard(showCardProps: Card) {
   const baseCardProps = { id, code, note, tags };
 
   return (
-    <div className="flex flex-col items-center h-screen">
-      <BaseCard {...baseCardProps} />
-      <ShowCardStatusBanner status={status} />
-    </div>
-  );
+    <BaseCard {...baseCardProps} />
+  )
 }
 
 export default ShowCard;

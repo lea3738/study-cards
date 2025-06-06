@@ -6,6 +6,7 @@ import MiniTag from '../../Tag/MiniTag';
 import { useCards } from '@/hooks/useCards';
 import CardNote from './CardNote';
 import DropDown from '@/components/DropDown/CardDropDown/Dropdown';
+import NavBarMobile from '@/components/NavBar/NavBarMobile';
 
 function BaseCard({ code, note, tags, id }: Card) {
   const [flipped, setFlipped] = useState(false);
@@ -25,20 +26,21 @@ function BaseCard({ code, note, tags, id }: Card) {
 
 
   return (
-    <div className="flex flex-col items-center h-full">
-      <div className="flex flex-col h-full w-64 bg-white border rounded-md p-4 shadow-md">
-       
-       <div className="flex justify-between">
-          <div>
-            {tags?.map((tag) => (
-              <MiniTag key={`key-${tag.name}`} tag={tag.name} />
-            ))}
-          </div>
-          < DropDown handleDelete={handleDelete} cardId={id}/>
-        </div>
+    <div className="flex flex-col flex-1 w-64 bg-white border rounded-md p-4 shadow-md min-h-0">
 
-        {flipped ? (
-          <div className="flex flex-col h-full">
+      {/* tags component */}
+      <div className="flex justify-between">
+        <div>
+          {tags?.map((tag) => (
+            <MiniTag key={`key-${tag.name}`} tag={tag.name} />
+          ))}
+        </div>
+        < DropDown handleDelete={handleDelete} cardId={id}/>
+      </div>
+
+      {/* Card content */}
+      {flipped ? (
+        <div className="flex flex-col flex-1 min-h-0">
             <CardNote note={note} />
             <button
             onClick={handleFlip}
@@ -46,20 +48,21 @@ function BaseCard({ code, note, tags, id }: Card) {
             >
               See Code
             </button>
-          </div>
-        ) : (
-          <div className="flex flex-col h-full">
-            <CardCode code={code} />
-            <button
-            onClick={handleFlip}
-            className="mt-4 bg-blue-500 text-white px-4 py-1 w-full rounded hover:bg-blue-600"
-            >
-              See Note
-            </button>
-          </div>
-        )}
         </div>
+      ) : (
+      <div className="flex flex-col h-full">
+        <CardCode code={code} />
+        <button
+        onClick={handleFlip}
+        className="mt-4 bg-blue-500 text-white px-4 py-1 w-full rounded hover:bg-blue-600"
+        >
+          See Note
+        </button>
+      </div>
+    )}
+
     </div>
+
   );
 }
 
