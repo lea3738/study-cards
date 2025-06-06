@@ -59,7 +59,7 @@ export default function UpdateCardTags({
   }, [updatedTagNames, allTagNames]);
 
   return (
-    <div className="w-full flex justify-between items-start border rounded-lg p-2 mb-2">
+    <div className="relative z-0 w-full flex justify-between items-start border rounded-lg p-2 mb-2">
       <div className="flex flex-col flex-1 min-w-0 mr-2">
         <p className="text-xs text-gray-600 flex-shrink-0">Tags</p>
         <div className="gap-1 flex flex-wrap mt-1">
