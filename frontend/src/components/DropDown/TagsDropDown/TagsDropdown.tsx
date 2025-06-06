@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import TagsDropDownButton from './TagsDropDownButton';
 import TagsDropDownContent from './TagsDropDownContent';
+import TagsDropDownInput from './TagsDropDownInput';
 
 interface TagsDropDownProps {
   tagNames: string[];
@@ -39,8 +39,8 @@ export default function TagsDropDown({
   };
 
   return (
-    <div className="relative inline-block text-left z-100" ref={dropdownRef}>
-      <TagsDropDownButton onClick={toggleMenu} />
+    <div ref={dropdownRef} className="flex-1">
+      <TagsDropDownInput onClick={toggleMenu} />
       {isOpen && (
         <TagsDropDownContent tagNames={tagNames} handleAddTagName={handleAddTagName} />
       )}
