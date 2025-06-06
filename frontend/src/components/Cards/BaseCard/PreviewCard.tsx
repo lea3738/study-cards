@@ -21,8 +21,8 @@ function PreviewCard({ id, code, status, tags }: PreviewCardProps) {
             <MiniTag key={`key-${tag.name}`} tag={tag.name} />
           ))}
         </div>
-        <div className="grow">
-          <div className="flex flex-col h-full">
+        <div className="flex flex-col flex-1 min-h-0">
+          <div className="flex flex-col flex-1 min-h-0">
             <CardCode code={code} />
             {status === CardStatus.DISMISSED && (
               <div className="text-sm bg-green-300 h-10 flex items-center px-2">

@@ -20,7 +20,7 @@ export default async function CardPage({
   };
 
   return (
-    <div className="h-screen flex flex-col items-center">
+    <div className="flex flex-col items-center h-screen">
       <ShowCard {...cardData} />
       <NavBarMobile />
     </div>

@@ -12,7 +12,7 @@ function CardDeckCard(cardDeckCardProps: CardDeckCardProps) {
   const baseCardProps = { id, code, note, tags };
 
   return (
-    <div className="flex flex-col items-center h-screen">
+    <div className="flex flex-col flex-1 min-h-0 items-center">
       <BaseCard {...baseCardProps} />
       <CardDeckDismissButton handleDismiss={handleDismiss} />
     </div>
