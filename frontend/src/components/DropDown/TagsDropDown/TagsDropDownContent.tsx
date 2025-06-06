@@ -13,7 +13,7 @@ export default function TagsDropDownContent({
 }: TagsDropDownContentProps) {
 
   return (
-    <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right border rounded-md bg-white shadow-lg">
+    <div className="absolute left-0 z-10 mt-2 origin-top-left border rounded-md bg-white shadow-lg">
       <div className="p-2">
         <div className="mb-2">
           {tagNames.map((tagName) => {

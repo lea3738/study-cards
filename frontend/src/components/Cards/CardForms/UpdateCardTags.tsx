@@ -11,27 +11,30 @@ interface UpdateCardTagsProps {
   handleUpdateTagNames: (tagNames: string[]) => void;
 }
 
-export default function UpdateCardTags({ tags, handleUpdateTagNames }: UpdateCardTagsProps) {
+export default function UpdateCardTags({
+  tags,
+  handleUpdateTagNames,
+}: UpdateCardTagsProps) {
   const [updatedTagNames, setUpdatedTagNames] = useState<string[]>([]);
   const [unassignedTagNames, setUnassignedTagNames] = useState<string[]>([]);
   const [allTagNames, setAllTagNames] = useState<string[]>([]);
   const { getTags } = useTags();
 
-// !!!! Need to modifiy the function where it's called
-const handleDeleteTagName = useCallback((deletedTagName: string) => {
-    setUpdatedTagNames(prev => prev.filter(tagName => tagName !== deletedTagName));
-}, []);
+  const handleDeleteTagName = useCallback((deletedTagName: string) => {
+    setUpdatedTagNames((prev) =>
+      prev.filter((tagName) => tagName !== deletedTagName),
+    );
+  }, []);
 
-// !!!! Need to modifiy the function where it's called
-const handleAddTagName = useCallback((tagName: string) => {
-    setUpdatedTagNames(prev => [...prev, tagName]);
-}, []);
-    
+  const handleAddTagName = useCallback((tagName: string) => {
+    setUpdatedTagNames((prev) => [...prev, tagName]);
+  }, []);
+
   // Get all existing tagNames and assigns them to allTagNames state
   useEffect(() => {
     async function loadAllTags() {
       const tags: Tag[] = await getTags();
-      const tagNames = tags.map(tag => tag.name);
+      const tagNames = tags.map((tag) => tag.name);
       setAllTagNames(tagNames);
     }
 
@@ -40,8 +43,8 @@ const handleAddTagName = useCallback((tagName: string) => {
 
   // Give initial tagNames to UpdatedTagsNames state
   useEffect(() => {
-      const tagNames = tags.map(tag => tag.name);  
-      setUpdatedTagNames(tagNames)
+    const tagNames = tags.map((tag) => tag.name);
+    setUpdatedTagNames(tagNames);
   }, []);
 
   // when updatedTags change, it recalculates udpdated and dismissed tag lists
@@ -52,14 +55,14 @@ const handleAddTagName = useCallback((tagName: string) => {
       (tagName) => !updatedTagNames.includes(tagName),
     );
     setUnassignedTagNames(tagNamesUnassigned);
-    handleUpdateTagNames(updatedTagNames)
+    handleUpdateTagNames(updatedTagNames);
   }, [updatedTagNames, allTagNames]);
 
   return (
-    <div className="w-full flex justify-between items-center border rounded-lg p-2">
-      <div className="flex flex-col">
-        <p className="text-xs text-gray-600">Tags</p>
-        <div className="gap-2 flex flex-wrap mt-2">
+    <div className="relative z-0 w-full flex justify-between items-start border rounded-lg p-2 mb-2">
+      <div className="flex flex-col flex-1 min-w-0 mr-2">
+        <p className="text-xs text-gray-600 flex-shrink-0">Tags</p>
+        <div className="gap-1 flex flex-wrap mt-1">
           {updatedTagNames.map((tagName) => {
             return (
               <DeletableTag
@@ -69,9 +72,12 @@ const handleAddTagName = useCallback((tagName: string) => {
               />
             );
           })}
+          <TagsDropDown
+            tagNames={unassignedTagNames}
+            handleAddTagName={handleAddTagName}
+          />
         </div>
       </div>
-      <TagsDropDown tagNames={unassignedTagNames} handleAddTagName={handleAddTagName}/>
     </div>
   );
 }
