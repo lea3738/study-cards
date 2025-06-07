@@ -6,10 +6,12 @@ import TagArea from './TagArea/TagArea';
 interface TagsDropDownContentProps {
   tagNames: string[];
   handleAddTagName: (tagName: string) => void;
+  handleDeleteTag: (tagName: string) => void;
 }
 export default function TagsDropDownContent({
   tagNames,
   handleAddTagName,
+  handleDeleteTag,
 }: TagsDropDownContentProps) {
 
   return (
@@ -22,7 +24,7 @@ export default function TagsDropDownContent({
                 key={`key-${tagName}`}
                 tagName={tagName}
                 handleAddTagName={handleAddTagName}
-              />
+                handleDeleteTag={handleDeleteTag}              />
             );
           })}
         </div>

@@ -7,13 +7,14 @@ import TagsDropDownInput from './TagsDropDownInput';
 interface TagsDropDownProps {
   tagNames: string[];
   handleAddTagName: (tagName: string) => void;
+  handleDeleteTag: (tagName: string) => void;
 }
 
 export default function TagsDropDown({
   tagNames,
   handleAddTagName,
+  handleDeleteTag,
 }: TagsDropDownProps) {
-
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +43,11 @@ export default function TagsDropDown({
     <div ref={dropdownRef} className="flex-1">
       <TagsDropDownInput onClick={toggleMenu} />
       {isOpen && (
-        <TagsDropDownContent tagNames={tagNames} handleAddTagName={handleAddTagName} />
+        <TagsDropDownContent
+          tagNames={tagNames}
+          handleAddTagName={handleAddTagName}
+          handleDeleteTag={handleDeleteTag}
+        />
       )}
     </div>
   );

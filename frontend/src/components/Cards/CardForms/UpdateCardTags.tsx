@@ -18,7 +18,7 @@ export default function UpdateCardTags({
   const [updatedTagNames, setUpdatedTagNames] = useState<string[]>([]);
   const [unassignedTagNames, setUnassignedTagNames] = useState<string[]>([]);
   const [allTagNames, setAllTagNames] = useState<string[]>([]);
-  const { getTags } = useTags();
+  const { getTags, deleteTagByName } = useTags();
 
   const handleDeleteTagName = useCallback((deletedTagName: string) => {
     setUpdatedTagNames((prev) =>
@@ -29,6 +29,15 @@ export default function UpdateCardTags({
   const handleAddTagName = useCallback((tagName: string) => {
     setUpdatedTagNames((prev) => [...prev, tagName]);
   }, []);
+
+  const handleDeleteTag = useCallback(async (deletedTagName: string) => {
+    try {
+      await deleteTagByName(deletedTagName);
+      setAllTagNames((prev) => prev.filter((tagName) => tagName !== deletedTagName));
+    } catch (e) {
+      console.log('enable to delete tag', e);
+    }
+  }, [deleteTagByName]);
 
   // Get all existing tagNames and assigns them to allTagNames state
   useEffect(() => {
@@ -75,6 +84,7 @@ export default function UpdateCardTags({
           <TagsDropDown
             tagNames={unassignedTagNames}
             handleAddTagName={handleAddTagName}
+            handleDeleteTag={handleDeleteTag}
           />
         </div>
       </div>
