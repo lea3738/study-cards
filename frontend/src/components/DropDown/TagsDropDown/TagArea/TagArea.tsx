@@ -5,16 +5,13 @@ interface TagAreaProps {
 }
 
 export default function TagArea({ handleAddTagName }: TagAreaProps) {
-  const [tagNamesInput, setTagNamesInput] = useState('');
+  const [tagNameInput, setTagNameInput] = useState('');
 
   function handleSubmit() {
-    const tagNames = tagNamesInput
-      .split('/')
-      .map((name) => name.trim())
-      .filter((name) => name !== '');
-
-    tagNames.forEach((tagName) => handleAddTagName(tagName));
-    setTagNamesInput('');
+    if (tagNameInput && tagNameInput !== '') {
+      handleAddTagName(tagNameInput);
+      setTagNameInput('');
+    }
   }
 
   return (
@@ -22,10 +19,10 @@ export default function TagArea({ handleAddTagName }: TagAreaProps) {
       <div className="relative">
         <textarea
           id="add-tags"
-          value={tagNamesInput}
-          onChange={(e) => setTagNamesInput(e.target.value)}
+          value={tagNameInput}
+          onChange={(e) => setTagNameInput(e.target.value)}
           className="block w-full h-6 p-1 pr-12 text-xs text-gray-900 border border-gray-400 rounded bg-white focus:border-blue-500 focus:outline-none"
-          placeholder="Add tags: separate with /"
+          placeholder="New tag"
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();

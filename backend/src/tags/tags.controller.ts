@@ -7,8 +7,8 @@ export class TagsController {
   constructor(private tagsService: TagsService) {}
 
   @Get()
-  getAllTags(): Promise<Tag[]> {
-    return this.tagsService.getAllTags();
+  getAllTagNames(): Promise<string[]> {
+    return this.tagsService.getAllTagNames();
   }
 
   @Patch('/:id')
@@ -19,8 +19,8 @@ export class TagsController {
     return this.tagsService.updateTag(id, name);
   }
 
-  @Delete('/:id')
-  deleteTag(@Param('id') id: string): Promise<void> {
-    return this.tagsService.deleteTag(id);
+  @Delete('/:name')
+  deleteTagByName(@Param('name') name: string): Promise<void> {
+    return this.tagsService.deleteTagByName(name);
   }
 }

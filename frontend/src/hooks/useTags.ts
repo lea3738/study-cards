@@ -1,17 +1,27 @@
-import { getTags as getTagsAPI } from '@/lib/api';
+import {
+  getAllTagNames as getAllTagNamesAPI,
+  deleteTagByName as deleteTagByNameAPI,
+} from '@/lib/api';
 import { useCallback } from 'react';
 
 export function useTags() {
-
-  const getTags= useCallback(async () => {
+  const getAllTagNames = useCallback(async () => {
     try {
-        const tags = await getTagsAPI();
-        return tags;
+      const tagNames = await getAllTagNamesAPI();
+      return tagNames;
     } catch (e) {
-        console.log('Error when getting tags', e);
-        return [];
+      console.log('Error when getting tag names', e);
+      return [];
     }
-  }, [])
+  }, []);
 
-  return { getTags };
+  const deleteTagByName = useCallback(async (name: string) => {
+    try {
+      await deleteTagByNameAPI(name);
+    } catch (e) {
+      console.log('Error when deleting tag', e);
+    }
+  }, []);
+
+  return { getAllTagNames, deleteTagByName };
 }

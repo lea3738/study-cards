@@ -99,7 +99,7 @@ export class CardsRepository extends Repository<Card> {
       card.status = status;
     }
 
-    if (tagNames && tagNames.length > 0) {
+    if (tagNames) {
       const tags = await this.tagsRepository.getOrCreateTags(tagNames);
 
       card.tags = tags;

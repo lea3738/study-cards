@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useCards } from '@/hooks/useCards';
 import { UpdateCardDto } from 'shared-types';
 import UpdateCardTags from './UpdateCardTags';
@@ -16,13 +16,10 @@ interface UpdateCardFormProps {
 function UpdateCardForm({ id, code, note, tags }: UpdateCardFormProps) {
   const [updatedCode, setUpdatedCode] = useState<string>(code);
   const [updatedNote, setUpdatedNote] = useState<string>(note);
-
-  const tagNames = tags.map((tag) => tag.name);
-
-  const updatedTagsRef = useRef<string[]>(tagNames);
+  const [updatedTagNames, setUpdatedTagNames] = useState<string[]>(tags.map(tag => tag.name));
 
   const handleUpdateTagNames = useCallback((tagNames: string[]) => {
-    updatedTagsRef.current = tagNames;
+    setUpdatedTagNames(tagNames);
   }, []);
 
   const { updateCard } = useCards();
@@ -32,9 +29,13 @@ function UpdateCardForm({ id, code, note, tags }: UpdateCardFormProps) {
     const updateCardDto: Partial<UpdateCardDto> = {
       code: updatedCode,
       note: updatedNote,
-      tagNames: updatedTagsRef.current,
+      tagNames: updatedTagNames,
     };
-    await updateCard(id, updateCardDto);
+    try {
+      await updateCard(id, updateCardDto);
+    } catch (e) {
+      console.log("error updating card", e)
+    }
   }
 
   return (
@@ -44,7 +45,7 @@ function UpdateCardForm({ id, code, note, tags }: UpdateCardFormProps) {
         className="flex flex-col flex-1 min-h-0 items-center border rounded shadow-lg border-gray-200 p-4 bg-white w-full max-w-xl"
       >
         <UpdateCardTags
-          tags={tags}
+          tagNames={updatedTagNames}
           handleUpdateTagNames={handleUpdateTagNames}
         />
         <div className="flex gap-4 grow">
