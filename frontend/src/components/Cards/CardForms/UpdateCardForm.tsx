@@ -33,7 +33,6 @@ function UpdateCardForm({ id, code, note, tags }: UpdateCardFormProps) {
     };
     try {
       await updateCard(id, updateCardDto);
-      console.log("dto", updateCardDto.tagNames)
     } catch (e) {
       console.log("error updating card", e)
     }
