@@ -7,8 +7,8 @@ export class TagsController {
   constructor(private tagsService: TagsService) {}
 
   @Get()
-  getAllTags(): Promise<Tag[]> {
-    return this.tagsService.getAllTags();
+  getAllTagNames(): Promise<string[]> {
+    return this.tagsService.getAllTagNames();
   }
 
   @Patch('/:id')

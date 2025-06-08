@@ -90,11 +90,11 @@ export async function deleteCard(id: string) {
   return { success: true };
 }
 
-export async function getTags() {
+export async function getAllTagNames() {
   const url = `${BASE_URL}/tags`;
   const res = await fetch(url);
 
-  if (!res.ok) throw new Error(`Failed to fetch tags`);
+  if (!res.ok) throw new Error(`Failed to fetch tag names`);
   return res.json();
 }
 

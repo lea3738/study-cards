@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useCards } from '@/hooks/useCards';
 import { UpdateCardDto } from 'shared-types';
 import UpdateCardTags from './UpdateCardTags';

@@ -6,8 +6,9 @@ import { Tag } from './tag.entity';
 export class TagsService {
   constructor(private tagsRepository: TagsRepository) {}
 
-  async getAllTags(): Promise<Tag[]> {
-    return await this.tagsRepository.find();
+  async getAllTagNames(): Promise<string[]> {
+    const tags: Tag[] = await this.tagsRepository.find();
+    return tags.map((tag) => tag.name);
   }
 
   updateTag(id: string, name: string): Promise<Tag> {

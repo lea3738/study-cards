@@ -3,7 +3,6 @@
 import TagsDropDown from '@/components/DropDown/TagsDropDown/TagsDropdown';
 import DeletableTag from '@/components/Tag/DeletableTag';
 import { useTags } from '@/hooks/useTags';
-import { Tag } from '@/types/components';
 import { useCallback, useEffect, useState } from 'react';
 
 interface UpdateCardTagsProps {
@@ -17,45 +16,58 @@ export default function UpdateCardTags({
 }: UpdateCardTagsProps) {
   const [unassignedTagNames, setUnassignedTagNames] = useState<string[]>([]);
   const [allTagNames, setAllTagNames] = useState<string[]>([]);
-  const { getTags, deleteTagByName } = useTags();
+  const { getAllTagNames, deleteTagByName } = useTags();
 
+  const handleDeleteTagName = useCallback(
+    (deletedTagName: string) => {
+      const newTagNames = tagNames.filter(
+        (tagName) => tagName !== deletedTagName,
+      );
+      handleUpdateTagNames(newTagNames);
+      console.log('tagNames after change', newTagNames);
+    },
+    [tagNames, handleUpdateTagNames],
+  );
 
-  const handleDeleteTagName = useCallback((deletedTagName: string) => {
-    const newTagNames = tagNames.filter((tagName) => tagName !== deletedTagName);
-    handleUpdateTagNames(newTagNames);
-    console.log("tagNames after change", newTagNames);
-  }, [tagNames, handleUpdateTagNames]);
+  const handleAddTagName = useCallback(
+    (addedTagName: string) => {
+      const newTagNames = [...tagNames, addedTagName];
+      handleUpdateTagNames(newTagNames);
+    },
+    [tagNames, handleUpdateTagNames],
+  );
 
-  const handleAddTagName = useCallback((addedTagName: string) => {
-    const newTagNames = [...tagNames, addedTagName];
-    handleUpdateTagNames(newTagNames);
-  }, [tagNames, handleUpdateTagNames]);
-
-  const handleDeleteTag = useCallback(async (deletedTagName: string) => {
-    try {
-      await deleteTagByName(deletedTagName);
-      setAllTagNames((prev) => prev.filter((tagName) => tagName !== deletedTagName));
-    } catch (e) {
-      console.log('enable to delete tag', e);
-    }
-  }, [deleteTagByName]);
+  const handleDeleteTag = useCallback(
+    async (deletedTagName: string) => {
+      try {
+        await deleteTagByName(deletedTagName);
+        setAllTagNames((prev) =>
+          prev.filter((tagName) => tagName !== deletedTagName),
+        );
+      } catch (e) {
+        console.log('enable to delete tag', e);
+      }
+    },
+    [deleteTagByName],
+  );
 
   // Get all existing tagNames and assigns them to allTagNames state
   useEffect(() => {
     async function loadAllTags() {
-      const tags: Tag[] = await getTags();
-      const tagNames = tags.map((tag) => tag.name);
+      const tagNames: string[] = await getAllTagNames();
       setAllTagNames(tagNames);
     }
 
     loadAllTags();
-  }, [getTags]);
+  }, [getAllTagNames]);
 
   // when updatedTags change, it recalculates udpdated and dismissed tag lists
   useEffect(() => {
     if (!allTagNames || allTagNames.length === 0) return;
 
-    const tagNamesUnassigned = allTagNames.filter((tagName) => !tagNames.includes(tagName))
+    const tagNamesUnassigned = allTagNames.filter(
+      (tagName) => !tagNames.includes(tagName),
+    );
     setUnassignedTagNames(tagNamesUnassigned);
   }, [allTagNames, tagNames]);
 
