@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useCards } from '@/hooks/useCards';
 import UpdateCardTags from './UpdateCardTags';
 import { useAI } from '@/hooks/useAI';
@@ -11,7 +11,6 @@ function NewCardForm() {
   const [note, setNote] = useState('');
   const searchParams = useSearchParams();
   const [newTags, setNewTags] = useState<string[]>([]);
-  const newTagsRef = useRef<string[]>([]);
 
   // get code from url if present  
   useEffect(() => {
@@ -31,7 +30,7 @@ function NewCardForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await createCard({ code, note, tagNames: newTagsRef.current });
+    await createCard({ code, note, tagNames: newTags });
   }
 
   async function handleGenerateNote(): Promise<void> {
