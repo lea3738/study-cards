@@ -10,6 +10,7 @@ function NewCardForm() {
   const [code, setCode] = useState('');
   const [note, setNote] = useState('');
   const searchParams = useSearchParams();
+  const [newTags, setNewTags] = useState<string[]>([]);
   const newTagsRef = useRef<string[]>([]);
 
   // get code from url if present  
@@ -20,10 +21,10 @@ function NewCardForm() {
         }
   }, [searchParams]);
 
-  const { generateNoteFromCodeWithAi, isGenerating, error } = useAI();
+  const { generateNoteFromCodeWithAi } = useAI();
 
   const handleUpdateTagNames = useCallback((tagNames: string[]) => {
-    newTagsRef.current = tagNames;
+    setNewTags(tagNames);
   }, []);
 
   const { createCard } = useCards();
@@ -52,7 +53,7 @@ function NewCardForm() {
         onSubmit={handleSubmit}
         className="flex flex-col items-center border rounded shadow-lg border-gray-200 p-4 h-screen bg-white"
       >
-        <UpdateCardTags tags={[]} handleUpdateTagNames={handleUpdateTagNames} />
+        <UpdateCardTags tagNames={newTags} handleUpdateTagNames={handleUpdateTagNames} />
         <div className="flex gap-4 grow mt-2">
           <div className="flex flex-col h-full w-64">
             <label htmlFor="code" className="text-lg font-bold mb-2">
